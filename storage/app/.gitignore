@@ -1,3 +1,4 @@
 *
 !public/
 !.gitignore
+#当前app目录用来存储应用生成的任意文件

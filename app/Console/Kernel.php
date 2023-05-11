@@ -5,6 +5,10 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+/**
+ * Console 目录用来存放自定义的命令文件
+ * kernel 是命令行的内核
+ */
 class Kernel extends ConsoleKernel
 {
     /**

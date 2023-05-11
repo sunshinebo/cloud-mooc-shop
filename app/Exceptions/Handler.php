@@ -5,6 +5,10 @@ namespace App\Exceptions;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
+/**
+ * Exception目录用来存放自定义的异常类
+ * handler 就是集中处理异常处理类
+ */
 class Handler extends ExceptionHandler
 {
     /**

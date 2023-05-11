@@ -4,6 +4,9 @@ namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
+/**
+ * Middleware 就是中间件 对请求进行拦截
+ */
 class Authenticate extends Middleware
 {
     /**
