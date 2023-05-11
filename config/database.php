@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'mysql'),//默认数据库连接
 
     /*
     |--------------------------------------------------------------------------
@@ -44,23 +44,23 @@ return [
         ],
 
         'mysql' => [
-            'driver' => 'mysql',
-            'url' => env('DATABASE_URL'),
+            'driver' => 'mysql',//数据库驱动
+//            'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
-            'unix_socket' => env('DB_SOCKET', ''),
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'strict' => true,
-            'engine' => null,
+            'unix_socket' => env('DB_SOCKET', ''),//当你使用socket连接的时候需要配置这个
+            'charset' => 'utf8mb4',//字符集 utf8mb4 可以支持表情的存储
+            'collation' => 'utf8mb4_unicode_ci',//字符集对应的排序方式
+            'prefix' => '',//数据库前缀
+            'prefix_indexes' => true,//是否使用前缀，如果是 false ，前缀就不会生效
+            'strict' => true,//是否开启mysql的严格模式，严格模式，就是对mysql数据进行强校验，如果不符合规则，就会报错
+            'engine' => null,//数据库引擎默认是InnoDB null 表示 innodb
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
+            ]) : [],//数据库连接的额外参数,MYSQL_ATTR_SSL_CA 是mysql的ssl证书
         ],
 
         'pgsql' => [
