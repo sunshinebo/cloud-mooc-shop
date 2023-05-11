@@ -22,6 +22,7 @@ Route::get('/home', function () {
 Route::get('home/hello', 'HomeController@hello')->middleware('benchmark');
 Route::get('home/hello2', 'HomeController@hello2');
 Route::get('home/dbTest', 'HomeController@dbTest');
+Route::get('home/modelTest','HomeController@modelTest');
 //Route::match(['get', 'post'], 'home/hello', 'HomeController@hello');
 //Route::any('home/hello', 'HomeController@hello');//不推荐在生产环境使用
 

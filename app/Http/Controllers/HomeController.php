@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Middleware\Benchmark;
+use App\Product;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -170,12 +171,58 @@ class HomeController extends Controller
         });
         //2.手动 自行提交、回滚 并做异常处理
         try {
-         DB::beginTransaction();
+            DB::beginTransaction();
             DB::table('users')->where('id', 7)->update(['name' => Str::random()]);
             DB::table('users')->where('id', 9)->update(['name' => Str::random()]);
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
         }
+
+    }
+
+    public function modelTest()
+    {
+//        $product = Product::query()->create([
+//            'title'       => '水杯',
+//            'category_id' => 1,
+//            'is_on_sale'  => 1,
+//            'price'       => '1200',
+//            'attr'        => ['高' => '10cm', '容积' => '200ml'],
+//        ]);
+//        $ret = Product::query()->insert([
+//            'title'       => '水杯2',
+//            'category_id' => 1,
+//            'is_on_sale'  => 1,
+//            'price'       => '1200',
+//            'attr'        => json_encode(['高' => '10cm', '容积' => '200ml']),
+//        ]);//insert 方法不会自动维护时间戳，需要手动维护 也不需要$fillable 自动填充
+//        $product = new Product();//创建一个空对象
+//        $product->fill([
+//            'title'       => '水杯3',
+//            'category_id' => 1,
+//            'is_on_sale'  => 1,
+//            'price'       => '1200',
+//            'attr'        => ['高' => '10cm', '容积' => '200ml'],
+//        ]);//fill 填充数据
+//        $product->title = '水杯4';//赋值的方式填充数据
+//        $product->save();//save 保存数据 会自动维护时间戳 会调用insertgetid方法,然后把id填充到 $product 方法里面，最后返回 $product 对象中就会有主键id字段
+//        dd($product);
+//         查询检索，参考查询构造器
+//         $products = Product::all();//查询所有数据
+//         $products = Product::query()->get();//查询所有数据
+//         $products = Product::query()->where('is_on_sale', 1)->get();
+//         dd($products);
+//         Product::query()->where('id', 1)->update(['is_on_sale' => 0]);
+//         $product        = Product::query()->find(1);
+//         $product->title = '保温杯';
+//         $product->save();
+//         dd($product);
+//         $product = Product::query()->find(2);
+//         $ret = $product->delete();
+//         dd($ret);
+//         $product = Product::withTrashed()->find(2);//查询软删除的数据
+//         $product->restore();//恢复软删除的数据
+//         dd($product);
 
     }
 }
