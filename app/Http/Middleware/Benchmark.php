@@ -19,7 +19,7 @@ class Benchmark
      *
      * @return mixed
      */
-    public function handle($request, Closure $next, $a, $b)
+    public function handle($request, Closure $next, $a = '', $b = '')
     {
         //把request 传给闭包函数 next，返回一个response
         //前置(程序运行之前) 逻辑标记应用程序进来时的时间戳
@@ -35,10 +35,12 @@ class Benchmark
         //记录应用程序日志
         Log::info('benchmark', [
             'url'     => $request->url(),
+            'status' => $response->status(),
+            'input'   => $request->input(),
+            'response' => $response->getContent(),
+            'runTime' => "$runTime ms",
             'a'       => $a,
             'b'       => $b,
-            'input'   => $request->input(),
-            'runTime' => "$runTime ms",
         ]);
 
         return $response;

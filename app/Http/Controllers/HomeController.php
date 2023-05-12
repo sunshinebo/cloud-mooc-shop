@@ -21,7 +21,7 @@ class HomeController extends Controller
         //only 白名单
         //benchmark:test1,test2 传参 传递给中间件 用逗号隔开 传递给中间件的参数 用冒号隔开
         //如何接受中间件传递过来的参数 去benchmark中间件中接受
-        $this->middleware('benchmark:test1,test2', ['only' => ['hello']]);
+        $this->middleware('benchmark:test1,test2', ['except' => ['hello']]);
     }
 
     public function hello()
@@ -318,53 +318,55 @@ class HomeController extends Controller
         // collect(['k1', 'k2'])->crossJoin(['v1', 'v2'])->dd();//把两个数组合并成一个数组，笛卡尔集，排列组合
     }
 
-//    public function cacheTest()
-//    {
-//        // 添加缓存
-//        Cache::put('key1', 'value1', 10);
-//        Cache::put('key2', 'value2');
-//        Cache::put('key3', 'value3', now()->addMinutes(1));
-//
+    public function cacheTest()
+    {
+        // ----------------------------------------缓存----------------------------------------
+        // 添加缓存Cache facade 门面缓存
+        Cache::put('key1', 'value1', 10);//10分钟后过期
+        Cache::put('key2', 'value2');//永不过期，不加时间参数
+        Cache::put('key3', 'value3', now()->addMinutes(1));//1分钟后过期，相对时间，在当前时间上加1分钟
+
 //        // 获取缓存
-//        $v1 = Cache::get('key1', 'default1');
-//        $v2 = Cache::get('key2', 'default2');
-//        $v3 = Cache::get('key3', 'default3');
-//        $is = Cache::has('key3');
-//
-//        // 如果key存在，则存储失败
-//        $is = Cache::add('key2', 'value', 10);
-//        $is = Cache::add('key4', 'value4', 10);
-//
-//        // 永久存储
-//        Cache::forever('key5', 'value5');
-//
-//        // 删除缓存
-//        Cache::forget('key2');
-//        Cache::put('key5', '', 0);
-//
-//        // 计数
-//        Cache::increment('key6', 1);
-//        Cache::increment('key6', 1);
-//        Cache::decrement('key6', 2);
-//        $v6 = Cache::get('key6');
-//
-//        // 获取并删除
-//        Cache::forever('key7', 'value7');
-//        $v7 = Cache::pull('key7');
-//
-//        // 获取缓存，缓存失效自动获取数据
-//        Cache::remember('key8', 60, function () {
+        $v1 = Cache::get('key1', 'default1');//通过key获取缓存，如果key不存在，则返回默认值
+        $v2 = Cache::get('key2', 'default2');
+        $v3 = Cache::get('key3', 'default3');
+
+        $is = Cache::has('key3');//判断缓存是否存在
+
+        // 如果key存在，则存储失败
+        $is = Cache::add('key2', 'value', 10);
+        $is = Cache::add('key4', 'value4', 10);
+
+        // 永久存储 不建议使用，缓存一定要加过期时间，不然如果数据量比较大，很难维护
+        Cache::forever('key5', 'value5');
+
+        // 删除缓存
+        Cache::forget('key2');
+        Cache::put('key5', '', 0);//设置缓存过期时间为0，相当于删除缓存
+
+        // 计数
+        Cache::increment('key6', 1);//如果key不存在，则会创建一个key，值为1
+        Cache::increment('key6', 1);//如果key存在，则会在原来的基础上加1
+        Cache::decrement('key6', 2);//如果key存在，则会在原来的基础上减2
+        $v6 = Cache::get('key6');
+
+        // 获取并删除
+        Cache::forever('key7', 'value7');//永久存储
+        $v7 = Cache::pull('key7');//获取并删除缓存
+
+        // 获取缓存，缓存失效自动获取数据
+        Cache::remember('key8', 60, function () {//如果缓存不存在，则获取数据
+            // todo ...
+            return ['xxx'];//返回的数据会被缓存
+        });
+
+//        $cache = Cache::get('key8');//获取缓存
+//        if (is_null($cache)) {//如果缓存不存在，则获取数据
 //            // todo ...
-//            return ['xxx'];
-//        });
-//
-//        //        $cache = Cache::get('key8');
-//        //        if (is_null($cache)) {
-//        //            // todo ...
-//        //            $cache = ['xxx'];
-//        //            Cache::put('key8', $cache, 60);
-//        //        }
-//    }
+//            $cache = ['xxx'];
+//            Cache::put('key8', $cache, 60);//存储缓存
+//        }
+    }
 //
 //    public function facadeTest()
 //    {

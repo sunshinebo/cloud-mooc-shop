@@ -7,6 +7,10 @@
     <list default="true" id="b2e22b0f-b5ed-4efb-9fbb-d889a3b6b7c0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/Benchmark.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/Benchmark.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/cache.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/cache.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,7 +176,7 @@
       <option name="presentableId" value="Default" />
       <updated>1683709617384</updated>
       <workItem from="1683709618628" duration="1829000" />
-      <workItem from="1683721624383" duration="25441000" />
+      <workItem from="1683721624383" duration="32538000" />
     </task>
     <servers />
   </component>
