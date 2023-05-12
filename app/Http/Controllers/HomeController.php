@@ -7,6 +7,7 @@ use App\Http\Middleware\Benchmark;
 use App\Product;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -225,4 +226,148 @@ class HomeController extends Controller
 //         dd($product);
 
     }
+
+    public function testCollection()
+    {
+        // ----------------------------------------获取数据值----------------------------------------
+//         $collect = collect([1, 2, 3]);
+//         dd($collect->toArray());//转换成数组
+//         dd($collect->all());//转换成数组
+//         $collect = collect(['k1' => 'v1', 'k2' => 'v2', 'k3' => 'v3']);
+//                $keys    = $collect->keys()->toArray();//获取所有的键
+//                $values  = $collect->values()->toArray();//获取所有的值
+//                dd($keys, $values);
+//                dd($collect->last());//获取最后一个值
+//         $collect->only(['k1', 'k2'])->dump();//获取指定的键值
+        $products = Product::all();
+//         $products->pluck('title')->dump();//获取title 这一列数据
+//         $products->take(2)->dump();//获取前两条数据
+//         dd($collect, $products);
+//         dd($products->toJson());//把集合转换成json
+//         $ret = $products->pluck('title')->implode(',');//把集合转换成字符串 用逗号分隔开
+//        dd($ret);
+
+        // ----------------------------------------聚合运算----------------------------------------
+        //        $products = Product::all()->pluck('price');
+        //        $products->count();
+        //        $products->sum();
+        //        $products->average();
+        //        $products->max();
+        //        $products->min();
+
+        // ----------------------------------------查找判断----------------------------------------
+        // $exists = collect(['v1', 'v2', 'v3'])->contains('v4');//判断数组里面是否包含某个值
+        // dd($exists);
+        // collect([1, 2, 3])->diff([2, 3])->dd();//获取两个数组的差集，差异于array_diff函数一样
+        // $collect = collect(['k1' => 'v1', 'k2' => 'v2', 'k3' => 'v3']);
+        // $is      = $collect->has('k1');//判断是否包含某个键
+
+        //如何判断一个集合是否为空，不能用empty 直接判断，要用isEmpty
+        // $collect = collect([]);
+        //        foreach ($collect as $item) {
+        //        }
+        // dd($collect->isEmpty());//判断集合是否为空
+
+        //集合可以像查询构造器一样链式调用（过滤集合时用很方便）
+        // $products = Product::all();
+        // $pro      = $products->where('id', 3);//集合用where方法筛选数据
+        // dd($pro);
+
+        // ----------------------------------------遍历----------------------------------------
+        // $products = Product::all();
+
+        //使用 each 方法进行遍历
+        //        $products->each(function ($item) {
+        //            var_dump($item->id);
+        //        });
+
+        //使用map方法进行遍历
+        //        $ret = $products->map(function ($item) {
+        //            return $item->id;
+        //        });
+        // dd($products, $ret->toArray());//map 方法会返回一个新的集合
+
+        //使用keyBy方法把集合转换成以id为键的数组，作用类似于array_column函数，就是从元素中拿出某个字段作为数组的键（常用）
+        // $keyBy = $products->keyBy('id')->toArray();
+        // dd($products->toArray(), $keyBy);
+
+        //使用groupBy方法把集合转换成以category_id为键的数组（分组）
+        // $group = $products->groupBy('category_id');
+        // dd($group->toArray());
+
+        //使用filter方法过滤集合 会返回一个新的集合 里面的元素是过滤后的元素 作用类似于array_filter函数 但是array_filter函数返回的是数组，而filter返回的是集合 用起来更方便
+        //        $products->filter(function ($item) {
+        //            return $item->id > 3;
+        //        })->dd();
+
+        // ----------------------------------------对数组本身进行操作的方法----------------------------------------
+        // $collect = collect(['k1' => 'v1', 'k2' => 'v2', 'k3' => 'v3']);
+
+        // dd($collect->flip()->toArray());//交换数组的键和值
+
+        // dd($collect->reverse()->toArray());//反转数组
+
+        // collect([12, 4, 5, 2, 77])->sortDesc()->dd();//降序排列
+
+        //        $products = Product::all();
+        //        $products->sortByDesc(function ($product) {
+        //            return $product->price;
+        //        })->dd();//根据价格降序排列   sortByDesc方法会返回一个新的集合
+
+        // collect(['k1', 'k2'])->combine(['v1', 'v2'])->dd();//把两个数组合并成一个数组，第一个数组的值作为键，第二个数组的值作为值，如果两个数组的元素个数不一样，会报错，所以要保证两个数组的元素个数一样
+        // collect(['k1', 'k2'])->crossJoin(['v1', 'v2'])->dd();//把两个数组合并成一个数组，笛卡尔集，排列组合
+    }
+
+//    public function cacheTest()
+//    {
+//        // 添加缓存
+//        Cache::put('key1', 'value1', 10);
+//        Cache::put('key2', 'value2');
+//        Cache::put('key3', 'value3', now()->addMinutes(1));
+//
+//        // 获取缓存
+//        $v1 = Cache::get('key1', 'default1');
+//        $v2 = Cache::get('key2', 'default2');
+//        $v3 = Cache::get('key3', 'default3');
+//        $is = Cache::has('key3');
+//
+//        // 如果key存在，则存储失败
+//        $is = Cache::add('key2', 'value', 10);
+//        $is = Cache::add('key4', 'value4', 10);
+//
+//        // 永久存储
+//        Cache::forever('key5', 'value5');
+//
+//        // 删除缓存
+//        Cache::forget('key2');
+//        Cache::put('key5', '', 0);
+//
+//        // 计数
+//        Cache::increment('key6', 1);
+//        Cache::increment('key6', 1);
+//        Cache::decrement('key6', 2);
+//        $v6 = Cache::get('key6');
+//
+//        // 获取并删除
+//        Cache::forever('key7', 'value7');
+//        $v7 = Cache::pull('key7');
+//
+//        // 获取缓存，缓存失效自动获取数据
+//        Cache::remember('key8', 60, function () {
+//            // todo ...
+//            return ['xxx'];
+//        });
+//
+//        //        $cache = Cache::get('key8');
+//        //        if (is_null($cache)) {
+//        //            // todo ...
+//        //            $cache = ['xxx'];
+//        //            Cache::put('key8', $cache, 60);
+//        //        }
+//    }
+//
+//    public function facadeTest()
+//    {
+//        Product::getProduct(123);
+//    }
 }
